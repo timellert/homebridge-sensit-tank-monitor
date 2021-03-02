@@ -118,3 +118,8 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .pnp.*
+.idea/.gitignore
+.idea/homebridge-sensit-tank-monitor.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/inspectionProfiles/Project_Default.xml

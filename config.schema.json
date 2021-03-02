@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "SENSiT",
   "pluginType": "platform",
   "singular": true,
   "schema": {
@@ -9,7 +9,30 @@
         "title": "Name",
         "type": "string",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "default": "SENSiT",
+        "description": "The name that will appear in your homebridge log"
+      },
+      "username": {
+        "title": "E-Mail",
+        "type": "string",
+        "placeholder": "YOUR-SENSiT-EMAIL",
+        "required": true,
+        "description": "Your SENSiT email address / login."
+      },
+      "password": {
+        "title": "Password",
+        "type": "string",
+        "placeholder": "YOUR-SENSiT-PASSWORD",
+        "required": true,
+        "description": "Your SENSiT password."
+      },
+      "refresh": {
+        "title": "Refresh",
+        "type": "string",
+        "required": false,
+        "placeholder": 24,
+        "minLength": 1,
+        "description": "Data polling interval in hours, defaults to 24 hours"
       }
     }
   }
