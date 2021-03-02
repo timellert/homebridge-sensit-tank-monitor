@@ -17,7 +17,8 @@
         "type": "string",
         "placeholder": "YOUR-SENSiT-EMAIL",
         "required": true,
-        "description": "Your SENSiT email address / login."
+        "description": "Your SENSiT email address / login.",
+        "format": "email"
       },
       "password": {
         "title": "Password",
