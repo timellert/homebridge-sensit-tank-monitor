@@ -23,7 +23,8 @@ export class SensitPlatformAccessory {
       .setCharacteristic(this.platform.Characteristic.SerialNumber, this.signalmanNo);
 
     // get the HumiditySensor service if it exists, otherwise create a new HumiditySensor service
-    this.service = this.accessory.getService(this.platform.Service.HumiditySensor) || this.accessory.addService(this.platform.Service.HumiditySensor);
+    this.service = this.accessory.getService(this.platform.Service.HumiditySensor) ||
+      this.accessory.addService(this.platform.Service.HumiditySensor);
 
     // set the service name, this is what is displayed as the default name on the Home app
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.tank.TankName);

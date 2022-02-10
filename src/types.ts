@@ -34,7 +34,7 @@ export interface TankInfo_V3 {
 }
 
 export interface SoapMobileAPPAuthenicate_v3Result {
-  APIResult:{ Code: number; Description: string; };
+  APIResult:{ Code: number; Description: string };
   APIUserID: string;
   EmailAddress: string;
   ConsumerServicesBrandID: number;

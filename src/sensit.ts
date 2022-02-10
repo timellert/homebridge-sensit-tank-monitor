@@ -6,7 +6,7 @@ export class SensitController {
 
   private readonly interval: number;
   private handler?: ReturnType<typeof setTimeout>;
-  private tanks: TankInfo_V3[]
+  private tanks: TankInfo_V3[];
 
   constructor(public emailAddress: string, public password: string, public pollHours: number = 12) {
     this.tanks = [];
@@ -31,7 +31,6 @@ export class SensitController {
     const response: APPAuthenicate_v3Response = asyncResult[0];
     const body = response.SoapMobileAPPAuthenicate_v3Result;
     if (body && body.APIResult && body.APIResult.Code === 0) {
-      console.log('Updating sensit tank info');
       this.tanks = body.Tanks.APITankInfo_V3;
       return this.tanks;
     } else {
@@ -43,7 +42,6 @@ export class SensitController {
     if (this.handler) {
       clearTimeout(this.handler);
     }
-    console.log('Started polling for sensit tank info');
     this.handler = setTimeout( async () => {
       this.startServerPoll();
       await this.getTanksInfo();
