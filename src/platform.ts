@@ -32,7 +32,7 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
   }
 
   async discoverDevices() {
-    const tanks = await this.sensit.getTanksInfo();
+    const tanks = await this.sensit.getTanksInfo(this.log);
     for (const tank of tanks) {
       const uuid = this.api.hap.uuid.generate(`${tank.SignalmanNo}`);
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
