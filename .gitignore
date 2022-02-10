@@ -123,3 +123,4 @@ dist
 .idea/modules.xml
 .idea/vcs.xml
 .idea/inspectionProfiles/Project_Default.xml
+aws.xml
