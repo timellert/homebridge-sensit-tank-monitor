@@ -8,7 +8,7 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
   public readonly Characteristic: typeof Characteristic = this.api.hap.Characteristic;
   public readonly accessories: PlatformAccessory[] = [];
-  public sensit: SensitController;
+  public readonly sensit: SensitController;
 
   constructor(
     public readonly log: Logger,
@@ -40,7 +40,7 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
       } else {
         this.log.info('Adding new accessory:', tank.TankName);
         const accessory = new this.api.platformAccessory(tank.TankName, uuid);
-        accessory.context.device = tank;
+        accessory.context.tank = tank;
         new SensitPlatformAccessory(this, accessory);
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }
