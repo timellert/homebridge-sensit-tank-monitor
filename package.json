@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "private": false,
   "displayName": "Homebridge SENSiT tank monitor",
   "name": "homebridge-sensit-tank-monitor",
   "version": "1.0.0",
