@@ -7,3 +7,5 @@ export const PLATFORM_NAME = 'SENSiT';
  * This must match the name of your plugin as defined the package.json
  */
 export const PLUGIN_NAME = 'homebridge-sensit-tank-monitor';
+
+export const SENSIT_CLOUD_URL = 'https://www.connectsensor.com/soap/MobileApp.asmx?wsdl';
