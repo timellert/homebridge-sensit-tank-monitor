@@ -19,15 +19,15 @@ export class SensitPlatformAccessory {
     // set accessory information
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
       .setCharacteristic(this.platform.Characteristic.Manufacturer, 'SENSiT')
-      .setCharacteristic(this.platform.Characteristic.Model, accessory.context.tank.ProductTypeId)
-      .setCharacteristic(this.platform.Characteristic.SerialNumber, this.signalmanNo);
+      .setCharacteristic(this.platform.Characteristic.Model, accessory.context.tank.ProductTypeId || 'default model')
+      .setCharacteristic(this.platform.Characteristic.SerialNumber, this.signalmanNo || 'default serial');
 
     // get the HumiditySensor service if it exists, otherwise create a new HumiditySensor service
     this.service = this.accessory.getService(this.platform.Service.HumiditySensor) ||
       this.accessory.addService(this.platform.Service.HumiditySensor);
 
     // set the service name, this is what is displayed as the default name on the Home app
-    this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.tank.TankName);
+    this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.tank.TankName || 'default tank');
 
     // register handler for GET CurrentRelativeHumidity Characteristic
     this.service.getCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity).onGet(this.getValue.bind(this));
