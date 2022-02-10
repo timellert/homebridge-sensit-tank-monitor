@@ -39,5 +39,7 @@
     "rimraf": "^3.0.2",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
-  }
+  },
+  "homepage": "https://github.com/timellert/homebridge-sensit-tank-monitor#readme",
+  "author": "timellert"
 }
