@@ -2,7 +2,7 @@
   "private": false,
   "displayName": "Homebridge SENSiT tank monitor",
   "name": "homebridge-sensit-tank-monitor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "SENSiT smart tank level monitor plugin for Homebridge",
   "license": "Apache-2.0",
   "repository": {

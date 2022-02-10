@@ -22,22 +22,29 @@ export class SensitController {
   }
 
   public async getTanksInfo(log?: Logger): Promise<TankInfo_V3[]> {
-    const soapClient = await soap.createClientAsync(SENSIT_CLOUD_URL);
-    const authArgs: APPAuthenicate_v3Request = { emailaddress: this.emailAddress, password: this.password };
-    const asyncResult = await soapClient.SoapMobileAPPAuthenicate_v3Async(authArgs);
-    if (!asyncResult) {
-      throw new Error('unable to initialise soap client');
-    }
-    const response: APPAuthenicate_v3Response = asyncResult[0];
-    const body = response.SoapMobileAPPAuthenicate_v3Result;
-    if (body && body.APIResult && body.APIResult.Code === 0) {
-      this.tanks = body.Tanks.APITankInfo_V3;
-      if (log) {
-        log.info('Updated values from server');
+    try {
+      const soapClient = await soap.createClientAsync(SENSIT_CLOUD_URL);
+      const authArgs: APPAuthenicate_v3Request = { emailaddress: this.emailAddress, password: this.password };
+      const asyncResult = await soapClient.SoapMobileAPPAuthenicate_v3Async(authArgs);
+      if (!asyncResult) {
+        throw new Error('unable to initialise soap client');
       }
-      return this.tanks;
-    } else {
-      throw new Error(body.APIResult.Description);
+      const response: APPAuthenicate_v3Response = asyncResult[0];
+      const body = response.SoapMobileAPPAuthenicate_v3Result;
+      if (body && body.APIResult && body.APIResult.Code === 0) {
+        this.tanks = body.Tanks.APITankInfo_V3;
+        if (log) {
+          log.info('Received updated tank values from cloud');
+        }
+        return this.tanks;
+      } else {
+        throw new Error(body.APIResult.Description);
+      }
+    } catch (err) {
+      if (log) {
+        log.error('Failed to connect to cloud server - please check settings');
+      }
+      return [];
     }
   }
 
@@ -45,16 +52,14 @@ export class SensitController {
     if (this.handler) {
       clearTimeout(this.handler);
     }
+    if (log) {
+      const pollHours = this.interval / 60 / 60 / 1000;
+      log.info(`Scheduling next cloud poll in ${pollHours} hours`);
+    }
     this.handler = setTimeout( async () => {
       await this.getTanksInfo(log);
-      this.startServerPoll();
+      this.startServerPoll(log);
     }, this.interval);
-  }
-
-  public stopServerPoll() {
-    if (this.handler) {
-      clearTimeout(this.handler);
-    }
   }
 
 }
