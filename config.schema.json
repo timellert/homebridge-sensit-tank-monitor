@@ -12,7 +12,7 @@
         "default": "SENSiT",
         "description": "The name that will appear in your homebridge log"
       },
-      "username": {
+      "emailAddress": {
         "title": "E-Mail",
         "type": "string",
         "placeholder": "YOUR-SENSiT-EMAIL",
@@ -31,9 +31,9 @@
         "title": "Refresh",
         "type": "string",
         "required": false,
-        "placeholder": 24,
+        "placeholder": 12,
         "minLength": 1,
-        "description": "Data polling interval in hours, defaults to 24 hours"
+        "description": "Data polling interval in hours, defaults to 12 hours"
       }
     }
   }
