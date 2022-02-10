@@ -42,8 +42,8 @@ export class SensitController {
       clearTimeout(this.handler);
     }
     this.handler = setTimeout( async () => {
-      this.startServerPoll();
       await this.getTanksInfo();
+      this.startServerPoll();
     }, this.interval);
   }
 
