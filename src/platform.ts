@@ -1,7 +1,7 @@
 import { API, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, Service, Characteristic } from 'homebridge';
 
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings';
-import { ExamplePlatformAccessory } from './platformAccessory';
+import { SensitPlatformAccessory } from './platformAccessory';
 import { SensitController } from './sensit';
 
 export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
@@ -19,7 +19,7 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
     this.log.debug('Finished initializing platform:', this.config.name);
     this.api.on('didFinishLaunching', () => {
       log.debug('Executed didFinishLaunching callback');
-      // run the method to discover / register your devices as accessories
+      // discover devices then start hourly server poll to keep refreshed
       this.discoverDevices().then(this.sensit.startServerPoll);
     });
   }
@@ -36,12 +36,12 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
       if (existingAccessory) {
         this.log.info('Restoring existing accessory from cache:', existingAccessory.displayName);
-        new ExamplePlatformAccessory(this, existingAccessory);
+        new SensitPlatformAccessory(this, existingAccessory);
       } else {
         this.log.info('Adding new accessory:', tank.TankName);
         const accessory = new this.api.platformAccessory(tank.TankName, uuid);
         accessory.context.device = tank;
-        new ExamplePlatformAccessory(this, accessory);
+        new SensitPlatformAccessory(this, accessory);
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }
     }
