@@ -1,5 +1,6 @@
 import * as soap from 'soap';
 import { SENSIT_CLOUD_URL } from './settings';
+import { Logger } from 'homebridge';
 
 export class SensitController {
 
@@ -20,7 +21,7 @@ export class SensitController {
     return undefined;
   }
 
-  public async getTanksInfo(): Promise<TankInfo_V3[]> {
+  public async getTanksInfo(log?: Logger): Promise<TankInfo_V3[]> {
     const soapClient = await soap.createClientAsync(SENSIT_CLOUD_URL);
     const authArgs: APPAuthenicate_v3Request = { emailaddress: this.emailAddress, password: this.password };
     const asyncResult = await soapClient.SoapMobileAPPAuthenicate_v3Async(authArgs);
@@ -31,18 +32,21 @@ export class SensitController {
     const body = response.SoapMobileAPPAuthenicate_v3Result;
     if (body && body.APIResult && body.APIResult.Code === 0) {
       this.tanks = body.Tanks.APITankInfo_V3;
+      if (log) {
+        log.info('Updated values from server');
+      }
       return this.tanks;
     } else {
       throw new Error(body.APIResult.Description);
     }
   }
 
-  public startServerPoll() {
+  public startServerPoll(log?: Logger) {
     if (this.handler) {
       clearTimeout(this.handler);
     }
     this.handler = setTimeout( async () => {
-      await this.getTanksInfo();
+      await this.getTanksInfo(log);
       this.startServerPoll();
     }, this.interval);
   }

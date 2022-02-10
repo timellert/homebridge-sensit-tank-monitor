@@ -23,7 +23,7 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
       // discover devices then start hourly server poll to keep refreshed
       this.discoverDevices();
       this.log.info(`Scheduling update poll in ${pollHours} hours`);
-      this.sensit.startServerPoll();
+      this.sensit.startServerPoll(this.log);
     });
   }
 
