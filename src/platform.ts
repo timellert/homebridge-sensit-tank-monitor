@@ -20,7 +20,7 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
     this.api.on('didFinishLaunching', () => {
       log.debug('Executed didFinishLaunching callback');
       // discover devices then start hourly server poll to keep refreshed
-      this.discoverDevices()
+      this.discoverDevices();
       this.sensit.startServerPoll();
     });
   }
