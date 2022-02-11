@@ -24,7 +24,12 @@
     "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "homebridge-sensit-tank-monitor",
+    "tank monitor",
+    "sensit",
+    "kingspan",
+    "fill level"
   ],
   "dependencies": {
     "soap": "^0.36.0"
