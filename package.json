@@ -2,7 +2,7 @@
   "private": false,
   "displayName": "Homebridge SENSiT tank monitor",
   "name": "homebridge-sensit-tank-monitor",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "SENSiT smart tank level monitor plugin for Homebridge",
   "license": "Apache-2.0",
   "repository": {
@@ -26,24 +26,30 @@
   "keywords": [
     "homebridge-plugin",
     "homebridge-sensit-tank-monitor",
-    "tank monitor",
+    "tank",
+    "monitor",
     "sensit",
     "kingspan",
-    "fill level"
+    "fill",
+    "level",
+    "humidity",
+    "sensor",
+    "water",
+    "oil"
   ],
   "dependencies": {
-    "soap": "^0.36.0"
+    "soap": "0.43.0"
   },
   "devDependencies": {
-    "@types/node": "^14.14.31",
-    "@typescript-eslint/eslint-plugin": "^5.11.0",
-    "@typescript-eslint/parser": "^5.11.0",
-    "eslint": "^8.8.0",
-    "homebridge": "^1.4.0",
-    "nodemon": "^2.0.15",
-    "rimraf": "^3.0.2",
-    "ts-node": "^10.5.0",
-    "typescript": "^4.5.5"
+    "@types/node": "14.14.31",
+    "@typescript-eslint/eslint-plugin": "5.11.0",
+    "@typescript-eslint/parser": "5.11.0",
+    "eslint": "8.8.0",
+    "homebridge": "1.4.0",
+    "nodemon": "2.0.15",
+    "rimraf": "3.0.2",
+    "ts-node": "10.5.0",
+    "typescript": "4.5.5"
   },
   "homepage": "https://github.com/timellert/homebridge-sensit-tank-monitor#readme",
   "author": "timellert"
