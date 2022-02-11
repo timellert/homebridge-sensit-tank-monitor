@@ -19,7 +19,7 @@ export class SensitPlatformAccessory {
     // set accessory information
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
       .setCharacteristic(this.platform.Characteristic.Manufacturer, 'SENSiT')
-      .setCharacteristic(this.platform.Characteristic.Model, accessory.context.tank.ProductTypeID || 'default model')
+      .setCharacteristic(this.platform.Characteristic.Model, `TypeId-${accessory.context.tank.ProductTypeID }`)
       .setCharacteristic(this.platform.Characteristic.SerialNumber, this.signalmanNo || 'default serial');
 
     // get the HumiditySensor service if it exists, otherwise create a new HumiditySensor service
