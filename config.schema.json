@@ -31,9 +31,9 @@
         "title": "Refresh",
         "type": "string",
         "required": false,
-        "placeholder": 12,
+        "placeholder": 6,
         "minLength": 1,
-        "description": "Data polling interval in hours, defaults to 12 hours"
+        "description": "Data polling interval in hours, defaults to 6 hours"
       }
     }
   }
