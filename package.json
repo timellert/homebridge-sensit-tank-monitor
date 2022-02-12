@@ -13,7 +13,7 @@
     "url": "https://github.com/timellert/homebridge-sensit-tank-monitor/issues"
   },
   "engines": {
-    "node": ">=10.17.0",
+    "node": ">=12.x",
     "homebridge": ">=1.3.0"
   },
   "main": "dist/index.js",
