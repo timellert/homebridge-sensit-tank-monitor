@@ -15,7 +15,7 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
     public readonly config: PlatformConfig,
     public readonly api: API,
   ) {
-    const pollHours = this.config.refresh || 12;
+    const pollHours = this.config.refresh || 6;
     this.sensit = new SensitController(this.config.emailAddress, this.config.password, pollHours);
     this.log.debug('Finished initializing platform:', this.config.name);
     this.api.on('didFinishLaunching', () => {
