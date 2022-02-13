@@ -2,7 +2,7 @@ import { API, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, 
 
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings';
 import { SensitPlatformAccessory } from './platformAccessory';
-import { SensitController } from './sensitController';
+import { SensitController, TankInfo_V3 } from './sensitController';
 
 export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
@@ -25,8 +25,10 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
     this.log.debug('Finished initializing platform:', this.config.name);
     this.api.on('didFinishLaunching', async () => {
       log.debug('Executed didFinishLaunching callback');
-      // discover devices then start server poll to keep refreshed
-      if (await this.discoverDevices()) {
+      // discover devices then start server poll to keep then refreshed
+      const hasDiscoveredDevices = await this.discoverDevices();
+      if (hasDiscoveredDevices) {
+        // only start polling for updates if we have discovered some devices
         this.sensit.startServerPoll();
         return;
       }
@@ -40,7 +42,13 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
 
   async discoverDevices(): Promise<boolean> {
     // get the tanks info from the cloud
-    const tanks = await this.sensit.getTanksInfo();
+    let tanks: TankInfo_V3[] = [];
+    try {
+      tanks = await this.sensit.getTanksInfo();
+    } catch (err) {
+      this.log.error('DiscoverDevices: unable to get tank info from cloud - please check config');
+      return false;
+    }
     for (const tank of tanks) {
       const uuid = this.api.hap.uuid.generate(`${tank.SignalmanNo}`);
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);

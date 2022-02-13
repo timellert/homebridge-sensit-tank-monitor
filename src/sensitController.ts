@@ -107,7 +107,7 @@ export class SensitController {
       try {
         await this.getTanksInfo();
       } catch (err) {
-        this.log.error('Unable to update tank info from cloud - pls check config');
+        this.log.error('Poll: unable to update tank info from cloud - please check config');
       }
       // start the poll timer
       this.startServerPoll();
