@@ -68,7 +68,7 @@ export class SensitController {
   constructor(private emailAddress: string, private password: string, private pollHours: number = 6, private log: Logger) {
     this.tanks = [];
     this.interval = pollHours * 60 * 60 * 1000;
-    this.log.info(`Controller created with of poll: ${pollHours} hours`);
+    this.log.info(`Controller created with poll of: ${pollHours} hours`);
   }
 
   public getTankLevelPercentage(signalmanNo: number): number | undefined {
