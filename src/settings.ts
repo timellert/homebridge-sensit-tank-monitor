@@ -8,4 +8,7 @@ export const PLATFORM_NAME = 'SENSiT';
  */
 export const PLUGIN_NAME = 'homebridge-sensit-tank-monitor';
 
+/**
+ * SENSiT Cloud server URL used to retrieve tank information
+ */
 export const SENSIT_CLOUD_URL = 'https://www.connectsensor.com/soap/MobileApp.asmx?wsdl';
