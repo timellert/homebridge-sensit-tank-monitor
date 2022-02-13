@@ -2,7 +2,7 @@ import { API, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, 
 
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings';
 import { SensitPlatformAccessory } from './platformAccessory';
-import { SensitController } from './sensit';
+import { SensitController } from './sensitController';
 
 export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
@@ -16,13 +16,20 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
     public readonly api: API,
   ) {
     const pollHours = this.config.refresh || 6;
-    this.sensit = new SensitController(this.config.emailAddress, this.config.password, pollHours);
+    this.sensit = new SensitController(this.config.emailAddress, this.config.password, pollHours, this.log);
+    // check we have valid config
+    if (!this.config.emailAddress || !this.config.password) {
+      log.error('Missing configuration details!');
+      return;
+    }
     this.log.debug('Finished initializing platform:', this.config.name);
-    this.api.on('didFinishLaunching', () => {
+    this.api.on('didFinishLaunching', async () => {
       log.debug('Executed didFinishLaunching callback');
-      // discover devices then start hourly server poll to keep refreshed
-      this.discoverDevices();
-      this.sensit.startServerPoll(this.log);
+      // discover devices then start server poll to keep refreshed
+      if (await this.discoverDevices()) {
+        this.sensit.startServerPoll();
+        return;
+      }
     });
   }
 
@@ -31,8 +38,9 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
     this.accessories.push(accessory);
   }
 
-  async discoverDevices() {
-    const tanks = await this.sensit.getTanksInfo(this.log);
+  async discoverDevices(): Promise<boolean> {
+    // get the tanks info from the cloud
+    const tanks = await this.sensit.getTanksInfo();
     for (const tank of tanks) {
       const uuid = this.api.hap.uuid.generate(`${tank.SignalmanNo}`);
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
@@ -47,5 +55,6 @@ export class SensitHomebridgePlatform implements DynamicPlatformPlugin {
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }
     }
+    return !!tanks;
   }
 }
