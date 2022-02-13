@@ -8,7 +8,7 @@ export class SensitController {
   private handler?: ReturnType<typeof setTimeout>;
   private tanks: TankInfo_V3[];
 
-  constructor(public emailAddress: string, public password: string, public pollHours: number = 12) {
+  constructor(public emailAddress: string, public password: string, public pollHours: number = 6) {
     this.tanks = [];
     this.interval = pollHours * 60 * 60 * 1000;
   }
