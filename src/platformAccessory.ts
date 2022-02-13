@@ -30,7 +30,7 @@ export class SensitPlatformAccessory {
         this.platform.log.error(`Unable to read value for tank: ${accessory.context.tank.TankName}`);
         throw new this.platform.api.hap.HapStatusError(this.platform.api.hap.HAPStatus.SERVICE_COMMUNICATION_FAILURE);
       }
-      this.platform.log.info(`Tank: ${accessory.context.tank.TankName} - Fill Level: ${value}%`);
+      this.platform.log.debug(`Tank: ${accessory.context.tank.TankName} - Fill Level: ${value}%`);
       return value;
     });
 
