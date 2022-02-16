@@ -1,4 +1,6 @@
 # homebridge-sensit-tank-monitor
+[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+
 
 
 Supports tank fill level readings for cloud connected Kingspan SENSiT tank monitors
